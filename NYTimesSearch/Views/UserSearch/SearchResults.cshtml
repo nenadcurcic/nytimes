@@ -1,4 +1,4 @@
-﻿@model NYTimesSearch.ViewModels.SearchResults
+﻿@model NYTimesSearch.ViewModels.SearchResultsViewModel
 @{
     ViewBag.Title = "SearchResults";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,10 +19,7 @@
             {
                 <li><a href=@searchItem.ArticleLink>@searchItem.ArticleName</a></li>
             }
-
-            
-        </ul>
-
+        </ul>        
     }
 }
 

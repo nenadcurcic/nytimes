@@ -9,7 +9,7 @@ namespace NYTimesSearch.Dtos
 {
     public class SearchResultsDto
     {
-        public List<SearchResultItem> SearchResultsList { get; set; }
+        public List<SearchResultItemViewModel> SearchResultsList { get; set; }
 
         [Required]
         public string UserName { get; set; }
@@ -19,7 +19,7 @@ namespace NYTimesSearch.Dtos
         public string SearchItem { get; set; }
         public SearchResultsDto()
         {
-            SearchResultsList = new List<SearchResultItem>();
+            SearchResultsList = new List<SearchResultItemViewModel>();
             Page = "1";
         }
     }

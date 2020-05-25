@@ -28,7 +28,7 @@ namespace NYTimesSearch.Controllers.Api
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
 
-            SearchResults response = await _nytService.SearchNews(search.SearchItem, search.Page).ConfigureAwait(false);
+            SearchResultsViewModel response = await _nytService.SearchNews(search.SearchItem, search.Page).ConfigureAwait(false);
             SearchResultsDto result = new SearchResultsDto();
             result.SearchResultsList = response.SearchResultsList;
             result.Page = search.Page;

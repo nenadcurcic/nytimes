@@ -9,6 +9,6 @@ namespace NYTimesSearch.Services
 {
     public interface INewsService
     {
-        Task<SearchResults> SearchNews(string keywords, string page);
+        Task<SearchResultsViewModel> SearchNews(string keywords, string page);
     }
 }

@@ -8,21 +8,34 @@ using NYTimesSearch.Config;
 
 namespace NYTimesSearch.Services
 {
-    //TODO: Comments
+    /// <summary>
+    /// News service
+    /// </summary>
     public class NewsService : INewsService
     {
+        #region configuration
         private readonly string APIKEY = CustomConfiguration.Settings.ApiKey;
         private readonly string URL = CustomConfiguration.Settings.ApiUrl;
         private readonly HttpClient client;
+        #endregion
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public NewsService()
         {
             client = new HttpClient();
         }
 
-        public async Task<SearchResults> SearchNews(string keywords, string page)
+        /// <summary>
+        /// Search news on New York Times service
+        /// </summary>
+        /// <param name="keywords">keywords to search</param>
+        /// <param name="page">Used for pagination</param>
+        /// <returns></returns>
+        public async Task<SearchResultsViewModel> SearchNews(string keywords, string page)
         {
-            SearchResults result = new SearchResults();
+            SearchResultsViewModel result = new SearchResultsViewModel();
             try
             {
                 var builder = new UriBuilder(URL);
@@ -37,11 +50,11 @@ namespace NYTimesSearch.Services
 
                 dynamic jsonResponse = JsonConvert.DeserializeObject(responseBody);
 
-                SearchResultItem item;
+                SearchResultItemViewModel item;
                 int itemsFound = jsonResponse.response.meta.hits > 10 ? 10 : jsonResponse.response.meta.hits;
                 for (int i = 1; i < itemsFound; i++)
                 {
-                    item = new SearchResultItem();
+                    item = new SearchResultItemViewModel();
                     item.ArticleName = jsonResponse.response.docs[i].headline.main;
                     item.ArticleLink = jsonResponse.response.docs[i].web_url;
                     item.ArticleSource = jsonResponse.response.docs[i].source;

@@ -6,11 +6,19 @@ using System.Web.Mvc;
 
 namespace NYTimesSearch.Controllers
 {
+/// <summary>
+/// News Controller
+/// </summary>
     public class UserSearchController : Controller
     {
         private readonly INewsService _nytService;
         private readonly IDbService _dbService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="nytService">News Service DI</param>
+        /// <param name="dbService">Db Service DI</param>
         public UserSearchController(INewsService nytService, IDbService dbService)
         {
             _nytService = nytService;
@@ -21,15 +29,19 @@ namespace NYTimesSearch.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            UserSearch thisUser = new UserSearch() { UserName = this.User.Identity.Name };
-            return View("UserSearchForm", new SearchResults());
+            return View("UserSearchForm", new SearchResultsViewModel());
         }
 
+        /// <summary>
+        /// Displaying search results
+        /// </summary>
+        /// <param name="itemToSearch"></param>
+        /// <returns></returns>
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SearchNews(SearchResults itemToSearch)
+        public async Task<ActionResult> SearchNews(SearchResultsViewModel itemToSearch)
         {
-            SearchResults res = await _nytService.SearchNews(itemToSearch.SearchItem, itemToSearch.Page);
+            SearchResultsViewModel res = await _nytService.SearchNews(itemToSearch.SearchItem, itemToSearch.Page);
             await _dbService.SaveNewUserSearch(new UserSearch() { UserName = this.User.Identity.Name, SearchItem = itemToSearch.SearchItem.Trim() });
             return View("SearchResults", res);
         }

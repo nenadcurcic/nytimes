@@ -8,21 +8,34 @@ using System.Threading.Tasks;
 
 namespace NYTimesSearch.Services
 {
-    //TODO: comments
+    /// <summary>
+    /// Database service
+    /// </summary>
     public class DbService : IDisposable, IDbService
     {
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public DbService()
         {
             _context = new ApplicationDbContext();
         }
 
+        /// <summary>
+        /// Disposing object
+        /// </summary>
         public void Dispose()
         {
             _context.Dispose();
         }
 
+        /// <summary>
+        /// Saving serach item for particular user
+        /// </summary>
+        /// <param name="rawUserSearch">Object containing username and items to save in db</param>
+        /// <returns>True if success</returns>
         public async Task<bool> SaveNewUserSearch(UserSearch rawUserSearch)
         {
             bool saved = false;
@@ -42,6 +55,11 @@ namespace NYTimesSearch.Services
             return saved;
         }
 
+        /// <summary>
+        /// Get al searched items per user
+        /// </summary>
+        /// <param name="userName">username</param>
+        /// <returns>List of searched items</returns>
         public async Task<List<string>> GetAllSearchesPerUser(string userName)
         {
             List<string> result = new List<string>();
@@ -55,11 +73,21 @@ namespace NYTimesSearch.Services
             return result;
         }
 
+        /// <summary>
+        /// Cheking if user exist
+        /// </summary>
+        /// <param name="userName">User name</param>
+        /// <returns>True if exist</returns>
         public async Task<bool> CheckIfUserExist(string userName)
         {
             return await _context.Users.AnyAsync(u => u.UserName == userName);
         }
 
+        /// <summary>
+        /// Normalising search item - to lowercase and trimming
+        /// </summary>
+        /// <param name="search">Search obj to normalize</param>
+        /// <returns>Normalized</returns>
         private UserSearch NormalizeSearchItem(UserSearch search)
         {
             return new UserSearch()
