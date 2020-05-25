@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NYTimesSearch.ViewModels
 {
-    public class SearchResultItem
+    public class SearchResultItemViewModel
     {
         public string ArticleName { get; set; }
         public string ArticleLink { get; set; }
         public string ArticleSource { get; set; }
     }
-    public class SearchResults
+
+    public class SearchResultsViewModel
     {
-        public List<SearchResultItem> SearchResultsList { get; set; }
+        public List<SearchResultItemViewModel> SearchResultsList { get; set; }
         public string Page { get; set; }
 
         [Required]
         [Display(Name = "Search item")]
         public string SearchItem { get; set; }
-        public SearchResults()
+
+        public SearchResultsViewModel()
         {
-            SearchResultsList = new List<SearchResultItem>();
+            SearchResultsList = new List<SearchResultItemViewModel>();
             Page = "1";
         }
     }
