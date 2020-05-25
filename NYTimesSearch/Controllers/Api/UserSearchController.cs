@@ -9,17 +9,30 @@ using System.Web.Http;
 
 namespace NYTimesSearch.Controllers.Api
 {
+    /// <summary>
+    /// API Controller
+    /// </summary>
     public class UserSearchController : ApiController
     {
         private readonly INewsService _nytService;
         private readonly IDbService _dbService;
 
-        public UserSearchController(INewsService newService, IDbService dbService)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="newsService">News Service DI</param>
+        /// <param name="dbService">Db Service DI</param>
+        public UserSearchController(INewsService newsService, IDbService dbService)
         {
             _dbService = dbService;
-            _nytService = newService;
+            _nytService = newsService;
         }
 
+        /// <summary>
+        /// Search News
+        /// </summary>
+        /// <param name="search">Keywords and username</param>
+        /// <returns>Search results</returns>
         [Route("api/getsearchresults")]
         public async Task<SearchResultsDto> GetSearchResults(SearchResultsDto search)
         {
@@ -38,6 +51,11 @@ namespace NYTimesSearch.Controllers.Api
             return result;
         }
 
+        /// <summary>
+        /// Get all searched items for user
+        /// </summary>
+        /// <param name="userName">User name</param>
+        /// <returns>List of searched items</returns>
         [Route("api/GetSearchedItemsPerUser")]
         public async Task<UserSearchItemsListDto> GetSearchedItemsPerUser(string userName)
         {
