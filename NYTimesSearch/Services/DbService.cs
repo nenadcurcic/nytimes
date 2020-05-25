@@ -56,7 +56,7 @@ namespace NYTimesSearch.Services
         }
 
         /// <summary>
-        /// Get al searched items per user
+        /// Get all searched items per user
         /// </summary>
         /// <param name="userName">username</param>
         /// <returns>List of searched items</returns>
