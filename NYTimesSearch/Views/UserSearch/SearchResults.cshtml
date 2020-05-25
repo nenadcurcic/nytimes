@@ -1,0 +1,29 @@
+﻿@model NYTimesSearch.ViewModels.SearchResults
+@{
+    ViewBag.Title = "SearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Results</h2>
+
+@{
+    if (Model.SearchResultsList.Count == 0)
+    {
+        <h3>No results.</h3>
+    }
+    else
+    {
+
+        <ul>
+            @foreach (var searchItem in Model.SearchResultsList)
+            {
+                <li><a href=@searchItem.ArticleLink>@searchItem.ArticleName</a></li>
+            }
+
+            
+        </ul>
+
+    }
+}
+
+@Html.ActionLink("Go Back", "Index", "UserSearch")
