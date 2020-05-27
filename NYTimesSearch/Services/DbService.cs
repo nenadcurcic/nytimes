@@ -45,7 +45,7 @@ namespace NYTimesSearch.Services
              {
                  if (!userSearch.UserName.IsNullOrWhiteSpace()
                      && !userSearch.SearchItem.IsNullOrWhiteSpace()
-                   && await _context.UserSearches.AnyAsync(u => u.SearchItem.Contains(userSearch.SearchItem) && u.UserName == userSearch.UserName))
+                   && await _context.UserSearches.AnyAsync(u => !(u.SearchItem.Contains(userSearch.SearchItem) && u.UserName == userSearch.UserName)))
                  {
                      _context.UserSearches.Add(userSearch);
                      await _context.SaveChangesAsync();
